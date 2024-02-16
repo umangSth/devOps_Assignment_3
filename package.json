@@ -2,9 +2,9 @@
   "name": "tiktactoe",
   "version": "1.0.0",
   "description": "Devops Assignment 3",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "node index.js"
+    "test": "node app.js"
   },
   "repository": {
     "type": "git",
