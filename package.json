@@ -1,0 +1,19 @@
+{
+  "name": "tiktactoe",
+  "version": "1.0.0",
+  "description": "Devops Assignment 3",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umangSth/devOps_Assignment_3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/umangSth/devOps_Assignment_3/issues"
+  },
+  "homepage": "https://github.com/umangSth/devOps_Assignment_3#readme"
+}
