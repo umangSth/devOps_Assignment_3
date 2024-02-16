@@ -4,7 +4,7 @@
   "description": "Devops Assignment 3",
   "main": "app.js",
   "scripts": {
-    "test": "node app.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/umangSth/devOps_Assignment_3/issues"
   },
-  "homepage": "https://github.com/umangSth/devOps_Assignment_3#readme"
+  "homepage": "https://github.com/umangSth/devOps_Assignment_3#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
