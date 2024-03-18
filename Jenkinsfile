@@ -1,40 +1,32 @@
 pipeline {
-    agent {
-        docker {
-            image 'docker:latest'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
+    agent { any }
+    environment {
+        DOCKERHUB = credentials('Docker_hub')
     }
     stages {
-        stage('Checkout') {
+        stage('gitclone') {
             steps {
-                git credentialsId: 'Git', url: 'https://github.com/umangSth/devOps_Assignment_3.git'
+                git 'https://github.com/umangSth/devOps_Assignment_3.git'
             }
         }
         
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build('C0882758_Assignment_4:latest')
+                sh 'docker build -t umangsth/C0882758_Assignment_4:latest .'
+            }
+        }
+
+        stage('Login to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'Docker_hub', passwordVariable: 'DOCKERHUB_PSW', usernameVariable: 'DOCKERHUB_USR')]) {
+                    sh 'echo $DOCKERHUB_PSW | docker login -u $DOCKERHUB_USR --password-stdin'
                 }
             }
         }
         
         stage('Push to Docker Hub') {
             steps {
-                script {
-                    docker.withDockerRegistry([url:'https://registry.hub.docker.com', credentialsId: 'Docker_hub']) {
-                        docker.image('C0882758_Assignment_4:latest').push()
-                    }
-                }
-            }
-        }
-        
-        stage('Logout from Docker Hub') {
-            steps {
-                script {
-                    docker.logout()
-                }
+                sh 'docker push umangsth/C0882758_Assignment_4:latest'
             }
         }
     }
@@ -45,6 +37,9 @@ pipeline {
         }
         failure {
             echo 'Failed to build or push Docker image to Docker Hub'
+        }
+        always {
+            sh 'docker logout'
         }
     }
 }
