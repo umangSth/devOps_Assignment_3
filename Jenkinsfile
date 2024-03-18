@@ -1,10 +1,12 @@
 pipeline {
-    agent any 
+    agent any
+    
     environment {
         DOCKERHUB = credentials('Docker_hub')
     }
+    
     stages {
-        stage('gitclone') {
+        stage('Checkout') {
             steps {
                 git 'https://github.com/umangSth/devOps_Assignment_3.git'
             }
@@ -12,21 +14,19 @@ pipeline {
         
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t umangsth/C0882758_Assignment_4:latest .'
+                sh 'docker build -t umangsth/c0882758_assignment_4:latest .'
             }
         }
 
         stage('Login to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'Docker_hub', passwordVariable: 'DOCKERHUB_PSW', usernameVariable: 'DOCKERHUB_USR')]) {
-                    sh 'echo $DOCKERHUB_PSW | docker login -u $DOCKERHUB_USR --password-stdin'
-                }
+                sh 'echo $DOCKERHUB_PSW | docker login -u $DOCKERHUB_USR --password-stdin'
             }
         }
         
         stage('Push to Docker Hub') {
             steps {
-                sh 'docker push umangsth/C0882758_Assignment_4:latest'
+                sh 'docker push umangsth/c0882758_assignment_4:latest'
             }
         }
     }
